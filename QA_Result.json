@@ -1,0 +1,25 @@
+[
+  {
+    "idx": 0,
+    "compression_ratio": 0.15960665658093798,
+    "original_len": 1322,
+    "compressed_len": 211,
+    "compressed_context": "Subject: Q4 Global Pricing Strategy & Inventory Memorandum (Confidential)\nImportant Notice:Crucial Adjustment for Non-VIPs: For all regular customers, walk-in clients, or Tier-2/3 members, sales representatives are mandatory to add a 20% surcharge to the listed prices below. Demand for the base models has softened, but the Pro lineup remains robust. For the iPhone 15 Pro (256GB, Natural Titanium), the device is listed at $899. Please note this price reflects a subsidy from the carrier partnership program. The iPhone 15 Pro Max (512GB) is listed at $1,199. Any transactions processed after 23:59 (UTC) on Nov 12th must revert to standard MSRP pricing without exception. System overrides for late entries will trigger an automatic flag to the Compliance Department.",
+    "kept_char_spans": [
+      [
+        0,
+        275
+      ],
+      [
+        3755,
+        4041
+      ],
+      [
+        5240,
+        5448
+      ]
+    ],
+    "model_answer": "$899 + 20% surcharge = $1078.80\nOkay, let me try to figure out the price for an ordinary user to buy the iPhone 15 Pro (256GB). \n\nFirst, the problem says that there's a 20% sur",
+    "gold_output": "$1078.80"
+  }
+]

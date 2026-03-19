@@ -1,0 +1,7 @@
+# Abstract
+
+The exponential expansion of context windows in Large Language Models (LLMs) has unlocked capabilities for long-document understanding but introduced severe bottlenecks in inference latency and information utilization. Existing compression methods often suffer from high training costs or semantic fragmentation due to aggressive token pruning. 
+
+In this paper, we propose BEAVER, a novel training-free framework that shifts the compression method from linear token removal to structure-aware hierarchical selection.BEAVER maximizes hardware parallelism by mapping variable-length contexts into dense page-level tensors and preserves discourse integrity through a hybrid planner that synergizes dual-path pooling with sentence-level smoothing. 
+
+Extensive evaluations on LongBench, ZeroSCROLLS, RULER, and L-Eval demonstrate that BEAVER significantly outperforms state-of-the-art (SOTA) learning-based methods like LongLLMLingua. Notably, on the challenging RULER benchmark, BEAVER maintains highfidelity in multi-needle retrieval tasks where baselines deteriorate significantly. Efficiency-wise, BEAVER reduces compression latencyby approximately 26× compared to LongLLMLingua on 128k contexts, offering a robust, scalable solution for high-throughput applications.

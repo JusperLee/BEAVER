@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Compression Report - QA.jsonl</title>
+  <style>
+    :root {
+      --bg-app: #f3f4f6;
+      --bg-card: #ffffff;
+      
+      --text-main: #1f2937;
+      --text-muted: #9ca3af;
+      --text-light: #d1d5db;
+      
+      --border-subtle: #e5e7eb;
+      --border-focus: #d1d5db;
+
+      --primary: #4f46e5;
+      --primary-bg: #eef2ff;
+      
+      --success-text: #065f46;
+      --success-bg: #d1fae5;
+      
+      --dropped-text: #9ca3af;
+      
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      
+      --font-serif: "Times New Roman", Times, serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      font-family: var(--font-serif);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .app-header {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .app-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.025em;
+    }
+
+    .app-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 32px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    
+    .card:hover {
+        box-shadow: var(--shadow-md);
+        border-color: var(--border-focus);
+    }
+
+    .card-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: #f9fafb; /* Very light gray */
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .sample-id {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--primary);
+      background: var(--primary-bg);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      font-size: 12px;
+      background: #fff;
+      color: var(--text-main);
+    }
+    
+    .stat-pill.success { border-color: #a7f3d0; background: #ecfdf5; color: #064e3b; }
+    .stat-pill.warning { border-color: #fde68a; background: #fffbeb; color: #92400e; }
+    
+    .stat-pill .label {
+        color: var(--text-muted);
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+    
+    .stat-pill .value {
+        font-weight: 600;
+        font-family: var(--font-mono);
+    }
+
+    .content-body {
+      padding: 24px;
+    }
+
+    .section-box {
+      margin-bottom: 24px;
+    }
+    .section-box:last-child { margin-bottom: 0; }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .instruction-text {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .legend {
+        font-size: 12px;
+        color: var(--text-muted);
+        display: flex;
+        gap: 12px;
+    }
+    .legend-dot {
+        display: inline-block;
+        width: 8px; 
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 4px;
+    }
+    .legend-dot.kept { background: #10b981; }
+    .legend-dot.dropped { background: #d1d5db; }
+
+    .original-text-wrapper {
+      font-family: var(--font-serif);
+      font-size: 16px; /* Increased slightly for Times New Roman readability */
+      line-height: 1.65;
+      color: var(--dropped-text); /* Default to dropped color */
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #ffffff;
+    }
+    
+    .kept {
+        background-color: var(--success-bg);
+        color: var(--success-text);
+        border-radius: 3px;
+        padding: 1px 0; /* Slight padding for the highlighter look */
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        font-weight: 500;
+    }
+    
+    .dropped {
+        color: var(--dropped-text);
+        /* Optional: text-decoration: line-through; opacity: 0.7; */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="app-header">
+      <div class="app-title">Compression Report - QA.jsonl</div>
+      <div class="app-subtitle">Visualizing compressed context • Kept spans highlighted</div>
+    </div>
+    
+    
+    <article class="card" id="item-0">
+      <header class="card-header">
+        <div class="header-left">
+            <span class="sample-id">#0</span>
+            <div class="stats-row">
+                
+            <div class="stat-pill success">
+                <span class="label">Compression</span>
+                <span class="value">0.16x</span>
+            </div>
+        
+            <div class="stat-pill neutral">
+                <span class="label">Tokens</span>
+                <span class="value">1322 &rarr; 211</span>
+            </div>
+        
+        <div class="stat-pill neutral">
+            <span class="label">Kept</span>
+            <span class="value">14.1% (3 spans)</span>
+        </div>
+    
+            </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        
+        <div class="section-box">
+            <div class="section-label">Instruction / Query</div>
+            <div class="instruction-text">What is the price for an ordinary user to purchase an iPhone 15 Pro (256GB)? 
+Price is:</div>
+        </div>
+
+        <div class="section-box context-box">
+             <div class="section-header">
+                <div class="section-label">Original Context</div>
+                <div class="legend">
+                    <span class="legend-dot kept"></span> Kept
+                    <span class="legend-dot dropped"></span> Dropped
+                </div>
+            </div>
+            <div class="original-text-wrapper"><span class="kept">Subject: Q4 Global Pricing Strategy &amp; Inventory Memorandum (Confidential)
+Important Notice:Crucial Adjustment for Non-VIPs: For all regular customers, walk-in clients, or Tier-2/3 members, sales representatives are mandatory to add a 20% surcharge to the listed prices below.</span><span class="dropped"> Failure to apply this surcharge will result in an immediate audit of the branch manager&#x27;s commission log. This protocol supersedes the &quot;Autumn Sale&quot; directive issued on August 20th.
+We are currently experiencing significant supply chain disruptions regarding the NVIDIA H100 Tensor Core GPUs. The allocation for the North American sector has been reduced by 40%. Consequently, the procurement cost for the Dell PowerEdge XE9680 has fluctuated. The listed internal transfer price is $35,000 per unit, but availability is restricted to government contracts. Moving to the workstation segment, the Lenovo ThinkStation P620 equipped with the AMD Ryzen Threadripper PRO 5995WX is currently overstocked in the Berlin warehouse. To clear inventory, we are listing it at $4,200. Note that this specific SKU lacks the dual 10GbE Ethernet module. For the MacBook Pro 16-inch (M3 Max) configuration, supply remains stable. The listed price for the 1TB model is $3,499. However, the 8TB customized version requires a 6-week lead time due to NAND flash shortages in the Taiwan supply chain. All MacBook purchases in this quarter include a complimentary one-year subscription to iCloud+ (2TB tier), which is non-transferable.
+The camera market has shown resilience despite the economic downturn. The Sony Alpha 1 (ILCE-1) body is listed at $6,498. We have observed that competitors are bundling this with the FE 24-70mm GM II lens. Our strategy is to maintain the body-only price but offer a 50% discount on the vertical grip (VG-C4EM). The Canon EOS R3 is currently listed at $4,999. Please note that the firmware update v1.4.0 is required for compatibility with the new EL-5 Speedlite. Regarding legacy inventory, we still have 500 units of the Nikon Z9 listed at $5,499. These units must be liquidated before the end of the fiscal year to make room for the upcoming Z-series flagship. In the drone sector, the DJI Mavic 3 Cine Premium Combo is listed at $4,999. Be advised that new FAA regulations regarding Remote ID will impact sales in the US market effectively starting next month.
+The Dyson Gen5detect vacuum cleaner is listed at $949. Customer feedback indicates high satisfaction with the Fluffy Optic cleaner head, but complaints regarding battery life in Boost mode persist. The Samsung Bespoke 4-Door Flex Refrigerator with AI Family Hub+ is listed at $4,199. Due to the size of this unit, shipping to Hawaii and Alaska incurs an additional $300 freight charge. The charcoal glass panel finish is currently backordered until mid-November. The Roborock S8 Pro Ultra robot vacuum is listed at $1,599. We are seeing strong competition from the Dreame L20 Ultra, which is aggressively priced. Sales teams should emphasize the VibraRise 2.0 mopping system as a key differentiator.
+This is the most competitive segment for Q4. Please pay close attention to the following SKUs. In the Android ecosystem, the Samsung Galaxy S24 Ultra (Titanium Grey, 512GB) is currently out of stock due to high demand in the APAC region. Backorders are expected to be filled by Week 48. The Google Pixel 8 Pro (Obsidian, 256GB) featuring the new Tensor G3 chip is available starting at $999. However, the &quot;Bay&quot; blue colorway is strictly allocated to flagship stores only. The OnePlus Open foldable device is listed at $1,699. Early reviews are positive regarding the hinge mechanism, but software optimization for multi-tasking remains a concern for enterprise clients.
+ Moving on to the Apple ecosystem.</span><span class="kept"> Demand for the base models has softened, but the Pro lineup remains robust. For the iPhone 15 Pro (256GB, Natural Titanium), the device is listed at $899. Please note this price reflects a subsidy from the carrier partnership program. The iPhone 15 Pro Max (512GB) is listed at $1,199.</span><span class="dropped"> Supply constraints on the tetraprism periscope lens have eased, allowing for immediate dispatch. The iPad Air (M1, 64GB) is listed at $599. Education pricing does not stack with this list price.
+The Sony WH-1000XM5 noise-canceling headphones are listed at $348. The Bose QuietComfort Ultra headphones are listed at $429. The Apple AirPods Max (USB-C refresh pending) are listed at $549. We advise keeping inventory low on this specific SKU as a refresh is rumored for Q1 next year.
+All sales involving lithium-ion batteries exceeding 100Wh must comply with IATA Dangerous Goods Regulations (DGR) for air transport. For trade-in programs: The valuation of previous generation devices (e.g., iPhone 13, Galaxy S22) has been adjusted. Please refer to &quot;Appendix C - Trade-in Value Matrix v4.2&quot; on the internal portal. Warranty extensions (AppleCare+, Samsung Care+) must be registered within 60 days of purchase. Shipping policies for international orders have changed due to new customs tariffs in the Eurozone. Refer to the Logistics Handbook page 42.
+This document serves as the primary reference for the Q4 promotional period. Note: This entire promotion and the price list above ended on Nov 12th.</span><span class="kept"> Any transactions processed after 23:59 (UTC) on Nov 12th must revert to standard MSRP pricing without exception. System overrides for late entries will trigger an automatic flag to the Compliance Department.</span></div>
+        </div>
+      </div>
+    </article>
+    
+    
+    <div style="text-align:center; color: #9ca3af; font-size: 12px; margin-top: 50px;">
+        Generated by Beaver Visualizer
+    </div>
+  </div>
+</body>
+</html>

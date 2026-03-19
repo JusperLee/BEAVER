@@ -1,0 +1,12 @@
+name: BEAVER
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.10.16
+  - pip
+  - pytorch=2.7.1
+  - pytorch-cuda=12.6
+  - pip:
+    - transformers==4.55.0

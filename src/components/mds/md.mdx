@@ -1,0 +1,45 @@
+# Paper Overview
+
+### Method Compare
+![](./images/comp.jpeg)
+
+Comparison of different prompt compression paradigms for long-context LLMs
+
+### Overall Pipeline
+![](./images/ours.png)
+
+- **Segmenter** Maps variable-length text into structured 2D page tensors using natural delimiters, optimizing hardware efficiency while preserving local context boundaries.
+
+- **PageEncoder** Extracts rich page-level representations via a training-free dual-path pooling mechanism that combines global semantics with unsupervised In-Context ITF weighting.
+
+- **QueryPlanner** Selects the most valuable segments by integrating hybrid semantic-lexical scoring with cognitive structural priors (Anchor, Flow, and Flash) to ensure comprehensive information retention.
+
+![](./images/smooth.png)
+
+The sentence smoother extends the filtered page fragments outward to the nearest sentence boundary, fixing the broken sentences caused by segmentation and ensuring the syntactic coherence of the final compressed text.
+
+### Experiment Details
+
+We comprehensively evaluated BEAVER on four diverse long-context benchmarks—LongBench, ZeroSCROLLS, RULER, and L-Eval—under strict 2,000 and 3,000 token budgets . All experiments were conducted using gpt-3.5-turbo-instruct as the backend LLM on NVIDIA A100 GPUs, comparing performance against state-of-the-art baselines including the LLMLingua series and embedding-based retrieval methods . Detailed hyperparameter settings are provided in the paper.
+
+### Results
+
+Extensive evaluations demonstrate that BEAVER outperforms SOTA baselines across multiple benchmarks, particularly dominating RULER, while achieving a 26.4x speedup on 128k contexts.
+
+![](./images/main-table.png)
+
+![](./images/ruler.png)
+
+![](./images/l-eval.png)
+
+![](./images/analysis.png)
+
+
+
+### Conclusion
+
+We introduce BEAVER, a training-free framework that revolutionizes prompt compression via structure-aware page selection . By preserving semantic integrity, it achieves SOTA performance in QA and retrieval while delivering a 26x speedup on 128k contexts. As a scalable, plug-and-play module, BEAVER enables efficient long-document understanding without the need for parameter updates.
+
+### Reproducibility Statement
+
+After the paper is accepted, we will fully disclose the project code and configuration. The dataset will still retain its original license, but acquisition instructions and scripts will be provided.
