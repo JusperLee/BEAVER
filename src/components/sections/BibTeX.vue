@@ -3,7 +3,12 @@ export default {
   data() {
     return {
       bibtex: [
-        "Will be updated",
+        `@article{hu2026beaver,
+  title={BEAVER: A Training-Free Hierarchical Prompt Compression Method via Structure-Aware Page Selection},
+  author={Hu, Zhengpei and Li, Kai and Fu, Dapeng and Zeng, Chang and Li, Yue and Tang, Yuanhao and Huang, Jianqiang},
+  journal={arXiv preprint arXiv:2603.19635},
+  year={2026}
+}`,
       ],
     }
   },

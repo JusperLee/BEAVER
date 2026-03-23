@@ -34,8 +34,9 @@ const emphases = [
 // 提供引导资料链接
 const buttons = [
   {
-    disabled: true,
+    disabled: false,
     name: "Paper",
+    link: "https://arxiv.org/abs/2603.19635",
     component: Document,
   },
   {
@@ -47,7 +48,7 @@ const buttons = [
   {
     disabled: false,
     name: "Demo",
-    link: "#",
+    link: "https://cslikai.cn/BEAVER",
     component: MagicStick,
   },
 ]

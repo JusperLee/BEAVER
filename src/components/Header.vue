@@ -6,7 +6,7 @@ import { SuccessFilled } from '@element-plus/icons-vue'
 // 项目主页
 const logo = {
     name: "Work",
-    link: "#",
+    link: "https://arxiv.org/abs/2603.19635",
 }
 
 </script>
