@@ -17,6 +17,7 @@
 > BEAVER is a training-free, structure-aware prompt compression framework that keeps discourse integrity while delivering extreme efficiency on long-context LLMs.
 
 ## 🔥 News
+- **[2026/03]** Gradio interactive demo released! Upload text/PDF, tune hyperparameters, and call external LLM APIs.
 - **[2026/03]** Code and demo released!
 
 ## 🚀 Quick Start (demo script)
