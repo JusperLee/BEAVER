@@ -23,6 +23,37 @@
 - **[2026/03]** Gradio interactive demo released! Upload text/PDF, tune hyperparameters, and call external LLM APIs.
 - **[2026/03]** Code and demo released!
 
+## 🐾 OpenClaw Plugin
+
+Use BEAVER directly inside [OpenClaw](https://github.com/nicepkg/openclaw) with the `/beaver` slash command.
+
+**Step 1: Start the BEAVER API server**
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install transformers fastapi uvicorn
+
+python beaver_server.py --model_path Qwen/Qwen3-0.6B --port 8765
+```
+
+**Step 2: Install the plugin**
+```bash
+# From npm
+openclaw plugins install openclaw-beaver-plugin
+
+# Or from source
+git clone https://github.com/JusperLee/BEAVER.git
+openclaw plugins install ./BEAVER/openclaw-plugin
+```
+
+**Step 3: Use it**
+```
+# Paste your long text in the conversation, then:
+/beaver What are the main contributions of this paper?
+/beaver Summarize the key findings
+```
+
+The plugin also registers `beaver_compress` and `beaver_ask` as tools that the agent can call automatically. See [openclaw-plugin/README.md](openclaw-plugin/README.md) for configuration options.
+
 ## 🚀 Quick Start (demo script)
 Run the end-to-end compression + report pipeline using the provided script:
 ```bash

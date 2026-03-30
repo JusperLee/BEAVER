@@ -3,7 +3,7 @@
 
 import argparse
 import threading
-from typing import Optional
+from typing import Optional, Tuple
 
 import torch
 from fastapi import FastAPI
@@ -21,15 +21,35 @@ _device: torch.device = torch.device("cpu")
 _lock = threading.Lock()
 
 
+def suggest_params(context: str) -> Tuple[int, int, int, int, float, float]:
+    """Auto-suggest hyperparameters based on document length."""
+    if not context or not context.strip():
+        return 64, 4, 4, 22, 0.7, 0.3
+    word_count = len(context.split())
+    char_count = len(context)
+    est_tokens = max(int(word_count * 1.3), int(char_count / 3))
+
+    if est_tokens < 512:
+        return 32, 2, 2, 2, 0.7, 0.3
+    elif est_tokens < 2048:
+        return 32, 4, 4, 4, 0.7, 0.3
+    elif est_tokens < 8192:
+        return 64, 2, 2, 8, 0.7, 0.3
+    elif est_tokens < 32768:
+        return 64, 4, 4, 8, 0.7, 0.3
+    else:
+        return 128, 4, 4, 32, 0.7, 0.3
+
+
 class CompressRequest(BaseModel):
     context: str = Field(..., description="Long text to compress")
     query: str = Field(..., description="Query/question guiding compression")
-    page_size: int = Field(64, ge=16, le=256)
-    anchor_pages: int = Field(4, ge=0, le=16)
-    flow_window: int = Field(4, ge=0, le=16)
-    flash_top_k: int = Field(22, ge=1, le=64)
-    semantic_weight: float = Field(0.7, ge=0.0, le=1.0)
-    lexical_weight: float = Field(0.3, ge=0.0, le=1.0)
+    page_size: Optional[int] = Field(None, ge=16, le=256, description="Auto-detected if omitted")
+    anchor_pages: Optional[int] = Field(None, ge=0, le=16, description="Auto-detected if omitted")
+    flow_window: Optional[int] = Field(None, ge=0, le=16, description="Auto-detected if omitted")
+    flash_top_k: Optional[int] = Field(None, ge=1, le=64, description="Auto-detected if omitted")
+    semantic_weight: Optional[float] = Field(None, ge=0.0, le=1.0, description="Auto-detected if omitted")
+    lexical_weight: Optional[float] = Field(None, ge=0.0, le=1.0, description="Auto-detected if omitted")
 
 
 class CompressResponse(BaseModel):
@@ -43,13 +63,16 @@ class CompressResponse(BaseModel):
 @app.post("/compress", response_model=CompressResponse)
 @torch.no_grad()
 def compress(req: CompressRequest):
+    # Auto-detect params if not provided
+    auto_ps, auto_ap, auto_fw, auto_tk, auto_sw, auto_lw = suggest_params(req.context)
+
     cfg = HSPWrapperConfig(
-        page_size=req.page_size,
-        anchor_pages=req.anchor_pages,
-        flow_window=req.flow_window,
-        flash_top_k=req.flash_top_k,
-        semantic_score_weight=req.semantic_weight,
-        lexical_score_weight=req.lexical_weight,
+        page_size=req.page_size if req.page_size is not None else auto_ps,
+        anchor_pages=req.anchor_pages if req.anchor_pages is not None else auto_ap,
+        flow_window=req.flow_window if req.flow_window is not None else auto_fw,
+        flash_top_k=req.flash_top_k if req.flash_top_k is not None else auto_tk,
+        semantic_score_weight=req.semantic_weight if req.semantic_weight is not None else auto_sw,
+        lexical_score_weight=req.lexical_weight if req.lexical_weight is not None else auto_lw,
     )
 
     with _lock:

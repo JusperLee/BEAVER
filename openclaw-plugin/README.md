@@ -16,26 +16,22 @@ User: /beaver What are the main contributions of this paper?
 ### 1. Start the BEAVER API Server
 
 ```bash
-pip install fastapi uvicorn
+# Install PyTorch (see https://pytorch.org/get-started/locally/ for your platform)
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install transformers fastapi uvicorn
 
-# CPU mode
 python beaver_server.py --model_path Qwen/Qwen3-0.6B --port 8765
-
-# GPU mode
-python beaver_server.py --model_path Qwen/Qwen3-0.6B --mode gpu --dtype bf16 --port 8765
 ```
 
 ### 2. Install the Plugin
 
 ```bash
-# Option A: CLI install
-openclaw plugins install ./openclaw-plugin
+# From npm (recommended)
+openclaw plugins install openclaw-beaver-plugin
 
-# Option B: Manual copy
-cp -r openclaw-plugin ~/.openclaw/plugins/beaver-compression
-
-# Option C: Skill only (lightest)
-cp -r openclaw-plugin/skills/beaver ~/.openclaw/skills/beaver
+# Or from source
+git clone https://github.com/JusperLee/BEAVER.git
+openclaw plugins install ./BEAVER/openclaw-plugin
 ```
 
 ### 3. Usage
