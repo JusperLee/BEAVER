@@ -1,5 +1,7 @@
 <p align="center">
   <img src="./public/images/beaver1.jpeg" alt="Beaver Logo" width="140"/>
+  &nbsp;&nbsp;
+  <img src="./openclaw-plugin/Beaver-Claw.png" alt="Beaver × OpenClaw" width="140"/>
 </p>
 <h3 align="center">BEAVER: Training-Free Hierarchical Prompt Compression via Structure-Aware Page Selection</h3>
 <p align="center">
@@ -17,6 +19,7 @@
 > BEAVER is a training-free, structure-aware prompt compression framework that keeps discourse integrity while delivering extreme efficiency on long-context LLMs.
 
 ## 🔥 News
+- **[2026/03]** [OpenClaw](https://github.com/nicepkg/openclaw) plugin released! Use `/beaver <question>` to compress & query directly inside your AI coding assistant. See [openclaw-plugin/](openclaw-plugin/) for details.
 - **[2026/03]** Gradio interactive demo released! Upload text/PDF, tune hyperparameters, and call external LLM APIs.
 - **[2026/03]** Code and demo released!
 
@@ -128,3 +131,14 @@ Outputs:
 
 ## 🏆 Results
 BEAVER surpasses SOTA baselines and dominates RULER multi-needle retrieval while delivering ~26× compression speedup on 128k contexts.
+
+## 📝 Citation
+
+```bibtex
+@article{hu2026beaver,
+  title={BEAVER: A Training-Free Hierarchical Prompt Compression Method via Structure-Aware Page Selection},
+  author={Hu, Zhengpei and Li, Kai and Fu, Dapeng and Zeng, Chang and Li, Yue and Tang, Yuanhao and Huang, Jianqiang},
+  journal={arXiv preprint arXiv:2603.19635},
+  year={2026}
+}
+```

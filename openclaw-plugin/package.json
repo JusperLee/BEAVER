@@ -1,0 +1,15 @@
+{
+  "name": "openclaw-beaver-plugin",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "OpenClaw plugin for BEAVER long-text prompt compression",
+  "main": "src/index.ts",
+  "openclaw": {
+    "extensions": ["src/index.ts"]
+  },
+  "compatibility": {
+    "pluginApi": ">=1.0.0"
+  },
+  "keywords": ["openclaw", "plugin", "compression", "beaver", "prompt-compression"],
+  "license": "MIT"
+}

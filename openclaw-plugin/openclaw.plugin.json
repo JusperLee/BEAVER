@@ -1,0 +1,35 @@
+{
+  "id": "beaver-compression",
+  "name": "BEAVER Prompt Compression",
+  "description": "Compress long text context using BEAVER hierarchical prompt compression before sending to LLM. Reduces token usage by up to 26x while preserving key information.",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "serverUrl": {
+        "type": "string",
+        "default": "http://127.0.0.1:8765",
+        "description": "URL of the BEAVER compression API server"
+      },
+      "defaultPageSize": {
+        "type": "number",
+        "default": 64,
+        "description": "Default page size for compression (16-256)"
+      },
+      "defaultTopK": {
+        "type": "number",
+        "default": 22,
+        "description": "Default flash top-K pages to keep (1-64)"
+      },
+      "autoCompress": {
+        "type": "boolean",
+        "default": false,
+        "description": "Automatically compress context when token count exceeds threshold"
+      },
+      "autoCompressThreshold": {
+        "type": "number",
+        "default": 2000,
+        "description": "Token count threshold for auto-compression"
+      }
+    }
+  }
+}
