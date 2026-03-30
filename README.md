@@ -8,7 +8,7 @@
     <strong>Zhengpei Hu<sup>1*</sup>, Kai Li<sup>2*</sup>, Dapeng Fu<sup>3</sup>, Chang Zeng<sup>4</sup>, Yue Li<sup>1</sup>, Yuanhao Tang<sup>1</sup>, Jianqiang Huang<sup>1†</sup></strong><br>
   <sup>1</sup>Qinghai University &nbsp; <sup>2</sup>Tsinghua University &nbsp; <sup>3</sup>Ant Group SIL &nbsp; <sup>4</sup>National Institute of Informatics<br>
   <sub>* Equal contribution &nbsp; † Corresponding author</sub><br>
-  <a href="https://arxiv.org/abs/2603.19635">📜 Paper</a> | <a href="https://cslikai.cn/BEAVER">🎬 Demo</a>
+  <a href="https://arxiv.org/abs/2603.19635">📜 Paper</a> | <a href="https://huggingface.co/spaces/JusperLee/BEAVER">🤗 HuggingFace</a> | <a href="https://cslikai.cn/BEAVER">🎬 Demo</a>
 </p>
 <p align="center">
   <img alt="Stars" src="https://img.shields.io/github/stars/JusperLee/BEAVER?style=social"/>
@@ -19,6 +19,7 @@
 > BEAVER is a training-free, structure-aware prompt compression framework that keeps discourse integrity while delivering extreme efficiency on long-context LLMs.
 
 ## 🔥 News
+- **[2026/03]** [HuggingFace Space](https://huggingface.co/spaces/JusperLee/BEAVER) is live! Try BEAVER directly in your browser — no setup needed.
 - **[2026/03]** [OpenClaw](https://github.com/nicepkg/openclaw) plugin released! Use `/beaver <question>` to compress & query directly inside your AI coding assistant. See [openclaw-plugin/](openclaw-plugin/) for details.
 - **[2026/03]** Gradio interactive demo released! Upload text/PDF, tune hyperparameters, and call external LLM APIs.
 - **[2026/03]** Code and demo released!
