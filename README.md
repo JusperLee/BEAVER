@@ -1,7 +1,7 @@
 <p align="center">
   <img src="./public/images/beaver1.jpeg" alt="Beaver Logo" width="140"/>
   &nbsp;&nbsp;
-  <img src="./openclaw-plugin/Beaver-Claw.png" alt="Beaver × OpenClaw" width="140"/>
+  <img src="./openclaw-plugin/Beaver-Claw.jpg" alt="Beaver × OpenClaw" width="140"/>
 </p>
 <h3 align="center">BEAVER: Training-Free Hierarchical Prompt Compression via Structure-Aware Page Selection</h3>
 <p align="center">
