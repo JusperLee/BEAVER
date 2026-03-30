@@ -8,11 +8,6 @@ on:
   issues:
     types: [opened, assigned]
 
-permissions:
-  contents: read
-  issues: write
-  pull-requests: write
-
 jobs:
   claude:
     if: |
@@ -20,6 +15,10 @@ jobs:
       (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
       (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - uses: anthropics/claude-code-action@v1
         with:
